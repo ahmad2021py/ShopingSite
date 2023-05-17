@@ -10,7 +10,7 @@ namespace ShopingSite.Models
        
         public int Id { get; set; }
         public string Name { get; set; }
-        public  int Description { get; set; }
+        public  string Description { get; set; }
         public int ItemId { get; set; }//  Foreign Key of Item Table
 
         //Relationship 
