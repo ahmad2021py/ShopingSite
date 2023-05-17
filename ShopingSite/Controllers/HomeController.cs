@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ShopingSite.Data;
 using ShopingSite.Models;
@@ -36,6 +37,37 @@ namespace ShopingSite.Controllers
         {
             return View();
         }
+
+        public IActionResult Detail(int id)
+        {
+            var product = _context.Products
+               .Include(p => p.Item)
+               .SingleOrDefault(p => p.Id == id);
+
+            if (product == null)
+            {
+                return NotFound(); //Return 404 page to browser
+            }
+
+            var categories = _context.Products
+                .Where(p => p.Id == id)
+                .SelectMany(c => c.CategoryToProducts)
+                .Select(ca => ca.Category)
+                .ToList();
+
+            var vm = new DetailsViewModel()
+            {
+                Product = product,
+                Categories = categories
+            };
+
+            return View(vm);
+
+
+
+
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
