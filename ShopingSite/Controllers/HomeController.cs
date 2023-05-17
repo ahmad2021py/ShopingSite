@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ShopingSite.Data;
 using ShopingSite.Models;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,11 @@ namespace ShopingSite.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private ShopingSiteContext _context;
+        public HomeController(ILogger<HomeController> logger , ShopingSiteContext context)
         {
             _logger = logger;
+            _context = context;//Dependency Injection
         }
 
         public IActionResult Index()
