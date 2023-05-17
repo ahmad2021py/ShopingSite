@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopingSite.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,19 @@ namespace ShopingSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            #region DbContext
+            services.AddDbContext<ShopingSiteContext>(options =>
+            {
+                options.UseSqlServer("Data Source =.;Initial Catalog=ShopingSiteDb;Integrated Security=true");
+
+            }
+
+
+           );
+
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
