@@ -17,9 +17,9 @@ namespace ShopingSite.Models
 
         public void AddItem(CartItem item)
         {
-            if (CartItems.Exists(n => n.Id == item.Id))
+            if (CartItems.Exists(n => n.Item.Id == item.Item.Id))
             {
-                CartItems.Find(n => n.Id == item.Id).Quantity += 1;
+                CartItems.Find(n => n.Item.Id == item.Item.Id).Quantity += 1;
             }
 
             else

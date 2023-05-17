@@ -15,6 +15,8 @@ namespace ShopingSite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ShopingSiteContext _context;
+        private static Cart _cart = new Cart();
+
         public HomeController(ILogger<HomeController> logger , ShopingSiteContext context)
         {
             _logger = logger;
@@ -68,6 +70,36 @@ namespace ShopingSite.Controllers
 
         }
 
+        public IActionResult AddToCart(int itemId)
+        {
+            var product = _context.Products.Include(p => p.Item).SingleOrDefault(p => p.ItemId == itemId);
+            if (product != null)
+            {
+                var cartItem = new CartItem()
+                {
+                    Item = product.Item,
+                    Quantity = 1
+                };
+                _cart.AddItem(cartItem);
+            }
+            return RedirectToAction("ShowCart");
+        }
+
+        public IActionResult ShowCart()
+        {
+            var CartVM = new CartViewModel()
+            {
+                CartItems = _cart.CartItems,
+                OrderTotal = _cart.CartItems.Sum(c => c.GetTotalPrice())
+            };
+            return View(CartVM);
+        }
+
+        public IActionResult RemoveCart(int itemId)
+        {
+            _cart.Remove(itemId);
+            return RedirectToAction("ShowCart");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
