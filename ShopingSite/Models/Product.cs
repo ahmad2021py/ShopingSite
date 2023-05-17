@@ -7,15 +7,15 @@ namespace ShopingSite.Models
 {
     public class Product
     {
-        public Product()
-        {
-            Categories = new List<Category>();
-        }
+       
         public int Id { get; set; }
         public string Name { get; set; }
         public  int Description { get; set; }
+        public int ItemId { get; set; }//  Foreign Key of Item Table
 
-        public List<Category> Categories { get; set; }
+        //Relationship 
+        public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
+        public Item Item { get; set; }
 
     }
 }

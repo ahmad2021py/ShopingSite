@@ -13,6 +13,6 @@ namespace ShopingSite.Models
 
         public  string Description { get; set; }
 
-
+        public ICollection<CategoryToProduct> CategoryToProducts { get; set; }
     }
 }
