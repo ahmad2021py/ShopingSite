@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopingSite.Data;
 
 namespace ShopingSite.Migrations
 {
     [DbContext(typeof(ShopingSiteContext))]
-    partial class ShopingSiteContextModelSnapshot : ModelSnapshot
+    [Migration("20230518124843_init UsersTbl")]
+    partial class initUsersTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
