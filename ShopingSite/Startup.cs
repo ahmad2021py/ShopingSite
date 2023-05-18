@@ -43,6 +43,7 @@ namespace ShopingSite
             #region IoC
 
             services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IUserRepository,  UserRepository>();
             //services.AddSingleton<IGroupRepository, GroupRepository>();
             //services.AddTransient<IGroupRepository, GroupRepository>();
 
