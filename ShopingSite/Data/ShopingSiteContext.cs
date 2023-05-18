@@ -20,8 +20,8 @@ namespace ShopingSite.Data
         public DbSet<CategoryToProduct> CategoryToProducts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Users> Users { get; set; }
 
-     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CategoryToProduct>()
