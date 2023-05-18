@@ -1,22 +1,30 @@
-﻿
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopingSite.Data;
+using ShopingSite.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShopingSite.Components
 {
     public class ProductGroupsComponent : ViewComponent
     {
-        private ShopingSiteContext _context;
+            private ShopingSiteContext _context;
 
-        public ProductGroupsComponent(ShopingSiteContext context)
-        {
-            _context = context;
-        }
+            public ProductGroupsComponent(ShopingSiteContext context)
+            {
+                _context = context;
+            }
 
-        public async Task<IViewComponentResult> InvokeAsync()
-        {
-            return View("/Views/Components/ProductGroupsComponent.cshtml", _context.Categories);
+            public async Task<IViewComponentResult> InvokeAsync()
+            {
+                var categories = _context.Categories
+                    .Select(c => new ShowGroupViewModel()
+                    {
+                        GroupId = c.Id,
+                        Name = c.Name,
+                        ProductCount = _context.CategoryToProducts.Count(g => g.CategoryId == c.Id)
+                    }).ToList();
+                return View("/Views/Components/ProductGroupsComponent.cshtml", categories);
+            }
         }
     }
-}
