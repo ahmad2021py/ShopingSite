@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ShopingSite.Data;
@@ -23,6 +24,7 @@ namespace ShopingSite.Controllers
             _context = context;//Dependency Injection
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var products = _context.Products.ToList();

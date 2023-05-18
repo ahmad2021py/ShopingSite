@@ -10,6 +10,7 @@ namespace ShopingSite.Data.Repositories
     {
         bool IsExistUserByEmail(string email);
         void AddUser(Users user);
+         Users GetUserForLogin(string email, string password);
         //  Users GetUserForLogin()
     }
 
@@ -31,6 +32,12 @@ namespace ShopingSite.Data.Repositories
         {
             _context.Add(user);
             _context.SaveChanges();
+        }
+
+        public Users GetUserForLogin(string email, string password)
+        {
+            return _context.Users
+                .SingleOrDefault(u => u.Email == email && u.Password == password);
         }
     }
 
