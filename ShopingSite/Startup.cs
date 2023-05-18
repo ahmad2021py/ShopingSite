@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopingSite.Data;
+using ShopingSite.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,14 @@ namespace ShopingSite
 
 
            );
+
+            #endregion
+
+            #region IoC
+
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            //services.AddSingleton<IGroupRepository, GroupRepository>();
+            //services.AddTransient<IGroupRepository, GroupRepository>();
 
             #endregion
 
